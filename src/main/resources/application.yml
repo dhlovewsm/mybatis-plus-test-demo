@@ -1,0 +1,21 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mybatis_plus
+    username: root
+    password: 123456
+
+# mybatis-plus配置
+mybatis-plus:
+  type-aliases-package: com.dh.mybatisplustestdemo.demos.pojo
+  mapper-locations: classpath:/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+  global-config:
+    db-config:
+      id-type: auto # 当TableId没有指定Type时，这里生效，id为雪花算法生成
+      update-strategy: not_null #更新策略：只更新非空字段
