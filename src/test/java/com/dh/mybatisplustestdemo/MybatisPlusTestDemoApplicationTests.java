@@ -103,4 +103,17 @@ class MybatisPlusTestDemoApplicationTests {
 
     }
 
+    @Test
+    public void testCustomSqlUpdate(){
+
+        List<Long> ids = List.of(1L, 2L, 4L);
+
+        QueryWrapper<User> wrapper = new QueryWrapper<User>()
+                .in("id", ids);
+
+        int amount = 200;
+        userMapper.updateBalanceByIds(wrapper, amount);
+
+    }
+
 }

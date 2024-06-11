@@ -33,7 +33,7 @@ public class User {
     public User() {
     }
 
-    public User(Integer id, String name, Integer phone, String password, String info, Integer status, Integer balance, LocalDateTime createTime, LocalDateTime updateTime) {
+    public User(Integer id, String name, String phone, String password, String info, Integer status, Integer balance, LocalDateTime createTime, LocalDateTime updateTime) {
         this.id = id;
         this.name = name;
         this.phone = phone;
@@ -52,7 +52,7 @@ public class User {
     private String name;
 
     @TableField("phone")
-    private Integer phone;
+    private String phone;
 
     @TableField(exist = false)
     private String password;
@@ -83,11 +83,11 @@ public class User {
         this.name = name;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
