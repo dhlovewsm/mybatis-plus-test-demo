@@ -6,7 +6,7 @@
     <update id="updateBalanceByIds">
         update tb_user set balance = balance - #{amount} ${ew.customSqlSegment}
     </update>
-    <select id="queryUserByIds" resultType="com.dh.mybatisplustestdemo.demos.pojo.User">
+    <select id="queryUserByIds" resultType="com.dh.mybatisplustestdemo.demos.domain.po.User">
         select *
         from tb_user
         <if test="ids != null">

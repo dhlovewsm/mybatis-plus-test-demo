@@ -2,7 +2,7 @@ package com.dh.mybatisplustestdemo.demos.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.dh.mybatisplustestdemo.demos.pojo.User;
+import com.dh.mybatisplustestdemo.demos.domain.po.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

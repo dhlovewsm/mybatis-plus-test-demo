@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.dh.mybatisplustestdemo.demos.pojo;
+package com.dh.mybatisplustestdemo.demos.domain.po;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
