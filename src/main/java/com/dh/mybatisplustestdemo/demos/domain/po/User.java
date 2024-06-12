@@ -20,6 +20,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import com.dh.mybatisplustestdemo.demos.enumeration.UserStatus;
 
 import java.time.LocalDateTime;
@@ -27,7 +28,7 @@ import java.time.LocalDateTime;
 /**
  * @author <a href="mailto:chenxilzx1@gmail.com">theonefx</a>
  */
-@TableName("tb_user")
+@TableName(value = "tb_user", autoResultMap = true)
 public class User {
 
     @TableId(type = IdType.AUTO)
@@ -42,7 +43,8 @@ public class User {
     @TableField(exist = false)
     private String password;
 
-    private String info;
+    @TableField(typeHandler = JacksonTypeHandler.class)
+    private UserInfo info;
 
     private UserStatus status;
 
@@ -84,11 +86,11 @@ public class User {
         this.password = password;
     }
 
-    public String getInfo() {
+    public UserInfo getInfo() {
         return info;
     }
 
-    public void setInfo(String info) {
+    public void setInfo(UserInfo info) {
         this.info = info;
     }
 

@@ -1,6 +1,7 @@
 package com.dh.mybatisplustestdemo.demos.service;
 
 import com.dh.mybatisplustestdemo.demos.domain.po.User;
+import com.dh.mybatisplustestdemo.demos.domain.po.UserInfo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,7 +26,7 @@ class UserServiceTest {
         user.setPassword("123");
         user.setPhone("18833334444");
         user.setBalance(200);
-        user.setInfo(null);
+        user.setInfo(UserInfo.of(24, "语文老师", "female"));
         user.setCreateTime(LocalDateTime.now());
         user.setUpdateTime(LocalDateTime.now());
 
@@ -48,7 +49,7 @@ class UserServiceTest {
         user.setPassword("123");
         user.setPhone("" + (18899998888L + i));
         user.setBalance(2000);
-        user.setInfo("{\"age\": 24}");
+        user.setInfo(UserInfo.of(24, "英文老师", "male"));
         user.setCreateTime(LocalDateTime.now());
         user.setUpdateTime(LocalDateTime.now());
 
