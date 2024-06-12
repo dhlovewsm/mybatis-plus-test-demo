@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dh.mybatisplustestdemo.demos.domain.po.Address;
 import com.dh.mybatisplustestdemo.demos.domain.vo.AddressVO;
 import com.dh.mybatisplustestdemo.demos.domain.vo.UserVO;
+import com.dh.mybatisplustestdemo.demos.enumeration.UserStatus;
 import com.dh.mybatisplustestdemo.demos.mapper.UserMapper;
 import com.dh.mybatisplustestdemo.demos.domain.po.User;
 import com.dh.mybatisplustestdemo.demos.service.UserService;
@@ -23,7 +24,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public void deductMoneyById(Long id, Integer money) {
         User user = getById(id);
 
-        if (user == null || user.getStatus() == 2){
+        if (user == null || user.getStatus() == UserStatus.FREEZE){
             throw new RuntimeException("用户状态异常");
         }
         if (user.getBalance() < money){
@@ -40,7 +41,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
          * 3.封装数据
          * */
         User user = getById(id);
-        if (user == null || user.getStatus() == 2){
+        if (user == null || user.getStatus() == UserStatus.FREEZE){
             throw new RuntimeException("用户状态异常！");
         }
 

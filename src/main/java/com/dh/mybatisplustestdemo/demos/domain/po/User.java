@@ -20,6 +20,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.dh.mybatisplustestdemo.demos.enumeration.UserStatus;
 
 import java.time.LocalDateTime;
 
@@ -43,7 +44,7 @@ public class User {
 
     private String info;
 
-    private Integer status;
+    private UserStatus status;
 
     private Integer balance;
 
@@ -91,11 +92,11 @@ public class User {
         this.info = info;
     }
 
-    public Integer getStatus() {
+    public UserStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(UserStatus status) {
         this.status = status;
     }
 
