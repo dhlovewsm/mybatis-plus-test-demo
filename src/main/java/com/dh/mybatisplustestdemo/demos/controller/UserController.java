@@ -44,8 +44,7 @@ public class UserController {
     @GetMapping("/{id}")
     public UserVO queryUserById(@ApiParam("用户ID") @PathVariable("id") Long id){
 
-        User user = userService.getById(id);
-        return BeanUtil.copyProperties(user, UserVO.class);
+        return userService.queryUserAndAddressById(id);
 
     }
 
@@ -53,8 +52,9 @@ public class UserController {
     @GetMapping
     public List<UserVO> queryUserByIds(@ApiParam("用户ID") @RequestParam("ids") List<Long> ids){
 
-        List<User> users = userService.listByIds(ids);
-        return BeanUtil.copyToList(users, UserVO.class);
+//        List<User> users = userService.listByIds(ids);
+//        return BeanUtil.copyToList(users, UserVO.class);
+        return userService.queryUserAndAddressByIds(ids);
 
     }
 
