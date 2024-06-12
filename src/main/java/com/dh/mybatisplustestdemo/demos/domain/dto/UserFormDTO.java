@@ -28,4 +28,5 @@ public class UserFormDTO {
     @ApiModelProperty("账户余额")
     private Integer balance;
 
+
 }

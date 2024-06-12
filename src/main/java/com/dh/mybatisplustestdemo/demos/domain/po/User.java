@@ -29,27 +29,11 @@ import java.time.LocalDateTime;
 @TableName("tb_user")
 public class User {
 
-
-    public User() {
-    }
-
-    public User(Integer id, String name, String phone, String password, String info, Integer status, Integer balance, LocalDateTime createTime, LocalDateTime updateTime) {
-        this.id = id;
-        this.name = name;
-        this.phone = phone;
-        this.password = password;
-        this.info = info;
-        this.status = status;
-        this.balance = balance;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
-    }
-
     @TableId(type = IdType.AUTO)
     private Integer id;
 
     @TableField("username")
-    private String name;
+    private String username;
 
     @TableField("phone")
     private String phone;
@@ -75,12 +59,12 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPhone() {
@@ -143,8 +127,8 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", phone=" + phone +
+                ", username='" + username + '\'' +
+                ", phone='" + phone + '\'' +
                 ", password='" + password + '\'' +
                 ", info='" + info + '\'' +
                 ", status=" + status +

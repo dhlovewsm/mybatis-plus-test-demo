@@ -3,8 +3,8 @@ package com.dh.mybatisplustestdemo;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.dh.mybatisplustestdemo.demos.mapper.UserMapper;
 import com.dh.mybatisplustestdemo.demos.domain.po.User;
+import com.dh.mybatisplustestdemo.demos.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,7 +30,7 @@ class MybatisPlusTestDemoApplicationTests {
     public void testInsert(){
 
         User user = new User();
-        user.setName("Jack");
+        user.setUsername("Jack");
         user.setPassword("123456");
 
         System.out.println(userMapper.insert(user));
@@ -94,8 +94,8 @@ class MybatisPlusTestDemoApplicationTests {
     public void testLambdaQueryWrapper(){
 
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<User>()
-                .select(User::getId, User::getName, User::getInfo, User::getBalance)
-                .like(User::getName, "o")
+                .select(User::getId, User::getUsername, User::getInfo, User::getBalance)
+                .like(User::getUsername, "o")
                 .ge(User::getBalance, 1000);
         List<User> users = userMapper.selectList(wrapper);
         users.forEach(System.out::println);
@@ -114,5 +114,6 @@ class MybatisPlusTestDemoApplicationTests {
         userMapper.updateBalanceByIds(wrapper, amount);
 
     }
+
 
 }

@@ -26,7 +26,9 @@ public class UserController {
     @PostMapping
     public void saveUser(UserFormDTO userDTO){
 
+        System.out.println(userDTO.toString());
         User user = BeanUtil.copyProperties(userDTO, User.class);
+        System.out.println(user);
         userService.save(user);
 
     }
@@ -53,6 +55,15 @@ public class UserController {
 
         List<User> users = userService.listByIds(ids);
         return BeanUtil.copyToList(users, UserVO.class);
+
+    }
+
+    @ApiOperation("扣减用户余额接口")
+    @PutMapping("/{id}/deduction/{money}")
+    public void deductMoneyById(@ApiParam("用户ID") @PathVariable("id") Long id,
+                                   @ApiParam("扣减的金额") @PathVariable("money") Integer money){
+
+        userService.deductMoneyById(id, money);
 
     }
 
