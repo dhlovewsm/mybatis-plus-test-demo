@@ -101,14 +101,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public PageDTO<UserVO> queryUsersPage(UserQuery query) {
 
         //构建分页条件
-        Page<User> page = Page.of(query.getPageNo(), query.getPageSize());
+/*        Page<User> page = Page.of(query.getPageNo(), query.getPageSize());
         //排序条件
         if (StrUtil.isNotBlank(query.getSortBy())){
             page.addOrder(query.getIsAsc() ? OrderItem.asc(query.getSortBy()) :
                     OrderItem.desc(query.getSortBy()));
         }else {
             page.addOrder(OrderItem.desc("update_time"));
-        }
+        }*/
+
+        Page<User> page = query.toMybatisPlusPage();
 
         String name = query.getUsername();
         Integer status = query.getStatus();
@@ -123,7 +125,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 .page(page);
 
         //封装VO
-        PageDTO<UserVO> dto = new PageDTO<>();
+/*        PageDTO<UserVO> dto = new PageDTO<>();
         dto.setTotal(p.getTotal());
         dto.setPages(p.getPages());
         List<User> records = p.getRecords();
@@ -132,7 +134,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             return dto;
         }
         dto.setList(BeanUtil.copyToList(records, UserVO.class));
-        return dto;
+        return dto;*/
+//        return PageDTO.of(p, UserVO.class);
+        return PageDTO.of(p, user -> {
+            //自己写的转换逻辑，可以做脱敏处理
+           UserVO vo = BeanUtil.copyProperties(user, UserVO.class);
+           vo.setUsername(user.getUsername().substring(0, user.getUsername().length() - 2) + "**");
+           return  vo;
+        });
     }
 
     @Override
