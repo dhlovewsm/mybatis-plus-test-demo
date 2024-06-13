@@ -2,13 +2,20 @@ package com.dh.mybatisplustestdemo.demos.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
+import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.dh.mybatisplustestdemo.demos.domain.dto.PageDTO;
 import com.dh.mybatisplustestdemo.demos.domain.po.Address;
 import com.dh.mybatisplustestdemo.demos.domain.vo.AddressVO;
 import com.dh.mybatisplustestdemo.demos.domain.vo.UserVO;
 import com.dh.mybatisplustestdemo.demos.enumeration.UserStatus;
 import com.dh.mybatisplustestdemo.demos.mapper.UserMapper;
 import com.dh.mybatisplustestdemo.demos.domain.po.User;
+import com.dh.mybatisplustestdemo.demos.query.UserQuery;
 import com.dh.mybatisplustestdemo.demos.service.UserService;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.toolkit.Db;
@@ -88,5 +95,54 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
 
         return list;
+    }
+
+    @Override
+    public PageDTO<UserVO> queryUsersPage(UserQuery query) {
+
+        //构建分页条件
+        Page<User> page = Page.of(query.getPageNo(), query.getPageSize());
+        //排序条件
+        if (StrUtil.isNotBlank(query.getSortBy())){
+            page.addOrder(query.getIsAsc() ? OrderItem.asc(query.getSortBy()) :
+                    OrderItem.desc(query.getSortBy()));
+        }else {
+            page.addOrder(OrderItem.desc("update_time"));
+        }
+
+        String name = query.getUsername();
+        Integer status = query.getStatus();
+        Integer min = query.getMinBalance();
+        Integer max = query.getMaxBalance();
+
+        Page<User> p = lambdaQuery()
+                .like(name != null, User::getUsername, name)
+                .eq(status != null, User::getStatus, status)
+                .ge(min != null, User::getBalance, min)
+                .le(max != null, User::getBalance, max)
+                .page(page);
+
+        //封装VO
+        PageDTO<UserVO> dto = new PageDTO<>();
+        dto.setTotal(p.getTotal());
+        dto.setPages(p.getPages());
+        List<User> records = p.getRecords();
+        if (CollUtil.isEmpty(records)){
+            dto.setList(Collections.emptyList());
+            return dto;
+        }
+        dto.setList(BeanUtil.copyToList(records, UserVO.class));
+        return dto;
+    }
+
+    @Override
+    public List<User> queryUsers(String username, Integer status, Integer minBalance, Integer maxBalance) {
+
+        return lambdaQuery()
+                .like(username != null, User::getUsername, username)
+                .eq(status != null, User::getStatus, status)
+                .ge(minBalance != null, User::getBalance, minBalance)
+                .le(maxBalance != null, User::getBalance, maxBalance)
+                .list();
     }
 }

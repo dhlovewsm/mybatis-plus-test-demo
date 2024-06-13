@@ -1,9 +1,11 @@
 package com.dh.mybatisplustestdemo.demos.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.dh.mybatisplustestdemo.demos.domain.dto.PageDTO;
 import com.dh.mybatisplustestdemo.demos.domain.dto.UserFormDTO;
 import com.dh.mybatisplustestdemo.demos.domain.po.User;
 import com.dh.mybatisplustestdemo.demos.domain.vo.UserVO;
+import com.dh.mybatisplustestdemo.demos.query.UserQuery;
 import com.dh.mybatisplustestdemo.demos.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -65,6 +67,26 @@ public class UserController {
 
         userService.deductMoneyById(id, money);
 
+    }
+
+    @ApiOperation("根据复杂条件查询用户接口")
+    @GetMapping("/list")
+    public List<UserVO> queryUsers(UserQuery query){
+
+        List<User> users = userService.queryUsers(
+                query.getUsername(), query.getStatus(),
+                query.getMinBalance(), query.getMaxBalance());
+
+        return BeanUtil.copyToList(users, UserVO.class);
+    }
+
+
+    @ApiOperation("根据复杂条件分页查询用户接口")
+    @GetMapping("/page")
+    public PageDTO<UserVO> queryUsersPage(UserQuery query){
+
+        System.out.println(query);
+        return userService.queryUsersPage(query);
     }
 
 
