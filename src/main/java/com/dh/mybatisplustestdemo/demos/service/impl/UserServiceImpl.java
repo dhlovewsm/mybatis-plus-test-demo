@@ -2,23 +2,19 @@ package com.dh.mybatisplustestdemo.demos.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.OrderItem;
-import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.extension.toolkit.Db;
 import com.dh.mybatisplustestdemo.demos.domain.dto.PageDTO;
 import com.dh.mybatisplustestdemo.demos.domain.po.Address;
+import com.dh.mybatisplustestdemo.demos.domain.po.User;
 import com.dh.mybatisplustestdemo.demos.domain.vo.AddressVO;
 import com.dh.mybatisplustestdemo.demos.domain.vo.UserVO;
 import com.dh.mybatisplustestdemo.demos.enumeration.UserStatus;
 import com.dh.mybatisplustestdemo.demos.mapper.UserMapper;
-import com.dh.mybatisplustestdemo.demos.domain.po.User;
 import com.dh.mybatisplustestdemo.demos.query.UserQuery;
 import com.dh.mybatisplustestdemo.demos.service.UserService;
 import org.springframework.stereotype.Service;
-import com.baomidou.mybatisplus.extension.toolkit.Db;
 
 import java.util.*;
 import java.util.stream.Collectors;
